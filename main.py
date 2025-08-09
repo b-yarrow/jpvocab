@@ -2,10 +2,16 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import os
+import random
 from tabulate import tabulate
+
+ENGLISH = 0
+JAPANESE = 1
 
 
 headings = ["ENGLISH", "KANA", "KANJI"]
+
 
 ch4verbs = [
     ("wake up", "おきます", "起きます"),
@@ -31,7 +37,7 @@ ch6verbs = [
     ("read", "よみます", "読みます"),
     ("write", "かきます", "書きます"),
     ("buy", "かいます", "買います"),
-    ("take a photo", "とります", "撮ります"),
+    ("take (a photo)", "とります", "撮ります"),
     ("do", "します", ""),
     ("meet", "あいます", "会います"),
 ]
@@ -45,7 +51,7 @@ ch7verbs = [
     ("borrow", "かります", "借ります"),
     ("teach", "おしえます", "教えます"),
     ("learn", "ならいます", "習います"),
-    ("make phone call", "かけます", ""),
+    ("make (phone call)", "かけます", ""),
 ]
 
 ch0verbs = [
@@ -63,28 +69,37 @@ ch10verbs = [
 ]
 
 def main():
+    os.system('clear')
     print("Starting JPVocab!")
+    print("Choose input language:")
+    print("1) English")
+    print("2) Japanese")
+    outputLang = None
 
-    print(tabulate(ch4verbs + ch5verbs + ch6verbs + ch7verbs, headers=headings))
-    #print(tabulate(ch4verbs, headers=headings))
-    #print(tabulate(ch5verbs, headers=headings))
-    #print(tabulate(ch6verbs, headers=headings))
-    #print(tabulate(ch7verbs, headers=headings))
-
-    #row_format ="{:>15}" * (len(headings) + 1)
-    #for t in ch4verbs[0]: row_format+="{:<"+str(len(t)+5)+"}"
-    #print(row_format.format("", *headings))
-    #for verb, row in zip(headings, ch4verbs):
-    #    print(row_format.format(verb, *row))
+    while outputLang == None:
+        choice = float(input("Enter a Number:"))
+        if choice == 1:
+            inputLang = ENGLISH
+            outputLang = JAPANESE
+        elif choice == 2:
+            inputLang = JAPANESE
+            outputLang = ENGLISH
+        else:
+            print("Invalid input, try again.")
     
-    
+    sortedList = sorted(ch4verbs + ch5verbs + ch6verbs + ch7verbs)
 
-    #print("ENGLISH\t\tHIRAGANA\t\tKANJI")
-    #print("---------------------------------------")
-    #for verb in Ch4verbs:
-    #    print (f"{verb[0]}\t\t{verb[1]}\t\t{verb[2]}")
-    #print(Ch5verbs[1][1])
+    while True:
+        randomword = random.randint(0, len(sortedList)-1)
+        
+        print(f"Random word is {sortedList[randomword][outputLang]}")
+        answer = input(f"Your answer:")
 
+        if answer == sortedList[randomword][inputLang]:
+            print(f"{answer} is correct!")
+        else:
+            print(f"{answer} is wrong!")
+            print(f"Correct answer is {sortedList[randomword][inputLang]}!")
 
 if __name__ == "__main__":
     main()
