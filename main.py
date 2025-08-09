@@ -9,6 +9,9 @@ from tabulate import tabulate
 ENGLISH = 0
 JAPANESE = 1
 
+KANA = 1
+KANJI = 2
+
 
 headings = ["ENGLISH", "KANA", "KANJI"]
 
@@ -80,7 +83,14 @@ def main():
         choice = float(input("Enter a Number:"))
         if choice == 1:
             inputLang = ENGLISH
-            outputLang = JAPANESE
+            print("Choose display:")
+            print("1) Kana")
+            print("2) Kanji")
+            choice = float(input("Enter a Number:"))
+            if choice == 1:
+                outputLang = JAPANESE
+            elif choice == 2:
+                outputLang = KANJI
         elif choice == 2:
             inputLang = JAPANESE
             outputLang = ENGLISH
