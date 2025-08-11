@@ -80,15 +80,15 @@ def main():
     outputLang = None
 
     while outputLang == None:
-        choice = float(input("Enter a Number:"))
+        choice = float(input("Enter a Number: "))
         if choice == 1:
             inputLang = ENGLISH
             print("Choose display:")
             print("1) Kana")
             print("2) Kanji")
-            choice = float(input("Enter a Number:"))
+            choice = float(input("Enter a Number: "))
             if choice == 1:
-                outputLang = JAPANESE
+                outputLang = KANA
             elif choice == 2:
                 outputLang = KANJI
         elif choice == 2:
@@ -98,18 +98,30 @@ def main():
             print("Invalid input, try again.")
     
     sortedList = sorted(ch4verbs + ch5verbs + ch6verbs + ch7verbs)
+    #sortedList = sorted(ch7verbs)
 
     while True:
         randomword = random.randint(0, len(sortedList)-1)
         
-        print(f"Random word is {sortedList[randomword][outputLang]}")
-        answer = input(f"Your answer:")
+        if sortedList[randomword][outputLang] == "":
+            print(f"Random word is {sortedList[randomword][KANA]}")
+        else:
+            print(f"Random word is {sortedList[randomword][outputLang]}")
+        answer = input(f"Your answer: ")
 
         if answer == sortedList[randomword][inputLang]:
             print(f"{answer} is correct!")
+            sortedList.pop(randomword)
+            if len(sortedList) == 0:
+                break
+            
         else:
             print(f"{answer} is wrong!")
             print(f"Correct answer is {sortedList[randomword][inputLang]}!")
+        
+        print(f"{len(sortedList)} words remaining!")
+    
+    print(f"All finished!  Exiting program...")
 
 if __name__ == "__main__":
     main()
